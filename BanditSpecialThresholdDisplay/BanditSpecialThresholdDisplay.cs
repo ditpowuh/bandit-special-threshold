@@ -62,7 +62,7 @@ namespace BanditSpecialThresholdDisplay {
       overlayRect.anchoredPosition = originalRect.anchoredPosition;
 
       Image overlayImage = overlayGameObject.AddComponent<Image>();
-      overlayImage.color = new Color(1, 0, 1, 0.25f);
+      overlayImage.color = new Color(1f, 0f, 1f, 0.25f);
       overlayImage.sprite = originalImage.sprite;
       overlayImage.preserveAspect = originalImage.preserveAspect;
       overlayImage.type = Image.Type.Filled;
@@ -102,8 +102,9 @@ namespace BanditSpecialThresholdDisplay {
       }
 
       float banditDamage = BanditSpecialThresholdDisplay.localBanditBody.damage;
+      int banditDesperadoBuff = BanditSpecialThresholdDisplay.localBanditBody.GetBuffCount(RoR2Content.Buffs.BanditSkull);
 
-      float fill = (banditDamage * 6f) / enemyMaxHp + 0.025f;
+      float fill = (banditDamage * 6f * (1f + banditDesperadoBuff * 0.1f)) / enemyMaxHp + 0.025f;
       customBar.fillAmount = Mathf.Clamp01(fill);
     }
   }
